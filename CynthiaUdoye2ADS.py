@@ -34,24 +34,21 @@ def create_dataframes(filename):
     # return the dataframes
     return df_years, df_countries
 
-df_years, df_countries = create_dataframes('API_19_DS2_en_csv_v2_5361599.csv')
+df_years, df_countries = create_dataframes('Climate-change-data.csv')
 # the untranspose dataframe
 print(df_years.head())
 
 # The transposed cleaned dataframe 
 print(df_countries.head())
 
-
 # selecting columns i need for the analysis.
 df = df_years.drop(['Country Code','Indicator Code','Unnamed: 66'], axis=1)
 print(df)
 
-# for the indicators i want to select 4 
-indicators= [ 'Urban population','CO2 emissions (kt)',\
-            'Electric power consumption (kWh per capita)', \
-            'Energy use (kg of oil equivalent per capita)']
 
-    
+#for the indicators i want to select 4 
+indicators= [ 'Urban population','CO2 emissions (kt)', 'Electric power consumption (kWh per capita)', 'Energy use (kg of oil equivalent per capita)']
+
 # subsetting the indicators    
 indi_df= df[df['Indicator Name'].isin (indicators)]
 
@@ -69,6 +66,7 @@ print(indi_T)
 countries = indi_T.loc[:, ['Argentina','United States','Malaysia','Germany','China','Nigeria' ]]
 data_df = countries.iloc[1:,:]
 print(data_df.head())
+
 
 # dropping missing values from my dataset
 data_df.dropna(inplace = True)
@@ -88,17 +86,16 @@ print(urb_pop)
 # exploring statistical properties of the urban population indicators by getting the summary statistics
 urb_pop.describe()
 
-np.mean(urb_pop)
-
-np.std(urb_pop)
-
 urb_pop.corr()
 
 # still converting the index to numeric
 urb_pop.index = pd.to_numeric(urb_pop.index)
 
+print(urb_pop)
+
+
 #define a function that creates a multiple plot
-def multiplot(xlabel, ylabel, labels, title):
+def multiplot(data_x, data_y, label, xlabel, ylabel, title):
     """
     This creates a multiple line plot and accepts the following as parameters
     xlabel: This is the label of the x-axis
@@ -106,9 +103,10 @@ def multiplot(xlabel, ylabel, labels, title):
     title: This is the name/title of the plot
     labels: These are the labels of each data on the y-axis
     """
-    plt.figure(figsize=(16,12), dpi=200)
-    urb_pop.plot()
-    plt.title(title, fontsize=11)
+    plt.figure(figsize=(16,12), dpi=100)
+    for i in range(len(data_y)):
+        plt.plot(data_x, data_y[i], label=label[i])
+    plt.title(title, fontsize=15)
     plt.xlabel(xlabel, fontsize=10)
     plt.ylabel(ylabel, fontsize=10)
     plt.legend()
@@ -116,12 +114,14 @@ def multiplot(xlabel, ylabel, labels, title):
     return
 
 # the arguments are passed into the function to display the multiple line plots
+data_x = urb_pop.index
+data_y = [urb_pop['Argentina'], urb_pop['United States'], urb_pop['Malaysia'], urb_pop['Germany'], urb_pop['China'], urb_pop['Nigeria']]
+label = ['Argentina', 'US', 'Malaysia', 'Germany', 'China', 'Nigeria']
 xlabel = 'Years'
 ylabel = 'Urban population'
-labels = ['1 hour', '24 hours', '7 days']
 title = 'Trends of the Urban population across selected years'
 
-multiplot(xlabel, ylabel, labels, title)
+multiplot(data_x, data_y, label, xlabel, ylabel, title)
 
 
 # generating a subset of new_df dataframe pertaining to carbondioxide emissions for all the chosen countries 
@@ -137,53 +137,52 @@ CO2_T = CO2.transpose()
 CO2_T = CO2_T.loc[:,[2000,2003,2006,2009,2012]]
 print(CO2_T)
 
-#define a function that visualizes a sub-bar plot 
-def barplot(width, ylabel, xlabel, title):
+CO2_T.iloc[:,0]
+
+
+# define a function that visualizes a sub-bar plot 
+def barplot(data, label_list, width, ylabel, xlabel, label, title, color):
     """
-    This creates a barplot of each columns using pandas plot function
+    This creates a barplot of each columns using subplot function
     and it accepts the following as parameters
+    data: the columns of the data to be plot
+    label_list: the label of the points on the x-axis
     width: width of each bars
     ylabel: the label of the y-axis
     xlabel: the label of the x-axis
+    label: the label of the each subplots
     title: the title/name of each subplots
+    color: the colors of each subplots
     """
-
-    plt.figure(figsize=(12,6))
-    CO2_T.plot(kind='bar')
-    plt.title(title, fontsize=11)
-    plt.xlabel(xlabel, fontsize=10)
-    plt.ylabel(ylabel, fontsize=10)
-    plt.rcParams["figure.dpi"] = 300
+    x = np.arange(len(label_list))
+    fig, ax  = plt.subplots(figsize=(16,12))
+  
+    plt.bar(x - width, data[0], width, label=label[0], color=color[0])
+    plt.bar(x, data[1], width, label=label[1], color=color[1])
+    plt.bar(x + width, data[2], width, label=label[2], color=color[2])
+    plt.bar(x + width*2, data[3], width, label=label[3], color=color[3])
+    plt.bar(x + width*3, data[4], width, label=label[4], color=color[4])
+    plt.title(title, fontsize=20)
+    plt.xlabel(None)
+    plt.ylabel(ylabel, fontsize=15)
+    plt.xticks(x + width, label_list, rotation='vertical')
     plt.legend()
-
+    
     plt.show()
 
+
 # the arguments below are passed into the defined function to create a subplot of barplots
-width = 1
-title = 'Grouped bar of CO2 emission for various nations over years'
+data = [CO2_T.iloc[:,0], CO2_T.iloc[:,1], CO2_T.iloc[:,2], CO2_T.iloc[:,3], CO2_T.iloc[:,4]]
+label_list = ['Argentina', 'US', 'Malaysia', 'Germany', 'China', 'Nigeria']
+width = 0.15
+ylabel = 'CO2 Emission'
 xlabel = 'Countries'
-ylabel = 'greenhouse_df_T emission'
+label = ['2000', '2003', '2006', '2009', '2012']
+title = 'Grouped bar chart of CO2 emission for various nations over years'
+color = ['cyan', 'pink', 'blue', 'green', 'purple']
+barplot(data, label_list, width, ylabel, xlabel, label, title, color)
 
-barplot(width, ylabel, xlabel, title)
-
-# generating a subset of new_df dataframe pertaining to Electric power consumption (kWh per capita) for all the chosen countries 
-electric_pow = new_df.iloc[:,[3,7,11,15,19,23]]
-print(electric_pow)
-
-# generating a subset of new_df dataframe pertaining to Energy use (kg of oil equivalent per capita) for all the chosen countries 
-energy_use = new_df.iloc[:,[2,6,10,14,18,22]]
-print(energy_use)
-
-#Plotting a scatter plot to show relationship for Electric power consumption (kWh per capita) and Energy use (kg of oil equivalent per capita)
-plt.style.use('default')
-plt.scatter(electric_pow['United States'], energy_use['United States'])
-plt.title('Relationship between Electric power and Energy use in United States')
-plt.xlabel('Electric power consumption (kWh per capita)')
-plt.ylabel('Energy use (kg of oil equivalent per capita)')
-plt.show()
-
-
-# generating the dataframe of United Kingdom
+# generating the dataframe of United States
 Uni_sta = indi_T.loc[:,'United States']
 print(Uni_sta)
 
@@ -200,15 +199,12 @@ print(Uni_sta)
 Uni_sta_cor = Uni_sta.corr().round(2)
 print(Uni_sta_cor)
 
-
-
 #plotting the heatmap and specifying the plot parameters
 plt.imshow(Uni_sta_cor, cmap='Accent_r', interpolation='none')
 plt.colorbar()
 plt.xticks(range(len(Uni_sta_cor)), Uni_sta_cor.columns, rotation=90)
 plt.yticks(range(len(Uni_sta_cor)), Uni_sta_cor.columns)
 plt.gcf().set_size_inches(11,9)
-
 
 #labelling of the little boxes and creation of a legend
 labels = Uni_sta_cor.values
@@ -217,7 +213,43 @@ for y in range(labels.shape[0]):
         plt.text(x,y, '{:.2f}'.format(labels[y,x]), ha='center', va='center',
                   color='black')
 plt.title('Correlation Map for United States')
-plt.savefig("Heat Map of United State Region" )
+plt.show()
+plt.savefig("Heat Map of United States Region" )
+
+
+# generating the dataframe of United States
+Nigeria = indi_T.loc[:,'Nigeria']
+
+# subsetting the columns
+Nigeria.columns = Nigeria.iloc[0]
+Nigeria = Nigeria[1:]
+
+# droping null values
+Nigeria.dropna(inplace= True)
+Nigeria = Nigeria.apply(pd.to_numeric) 
+
+# exploring the correlation between varaibles for United State 
+Nigeria_cor = Nigeria.corr().round(2)
+print(Nigeria_cor)
+
+#plotting the heatmap and specifying the plot parameters
+plt.imshow(Nigeria_cor, cmap='Accent_r', interpolation='none')
+plt.colorbar()
+plt.xticks(range(len(Nigeria_cor)), Nigeria_cor.columns, rotation=90)
+plt.yticks(range(len(Nigeria_cor)), Nigeria_cor.columns)
+plt.gcf().set_size_inches(11,9)
+
+#labelling of the little boxes and creation of a legend
+labels = Nigeria_cor.values
+for y in range(labels.shape[0]):
+    for x in range(labels.shape[1]):
+        plt.text(x,y, '{:.2f}'.format(labels[y,x]), ha='center', va='center',
+                  color='black')
+plt.title('Correlation Map for Nigeria')
+plt.show()
+plt.savefig("Heat Map of Nigeria" )
+
+
 
 
 
