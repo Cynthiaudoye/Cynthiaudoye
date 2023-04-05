@@ -9,6 +9,7 @@ Created on Wed Apr  5 10:28:18 2023
 # import standard libraries
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 # page source: https://data.worldbank.org/topic/climate-change. select=API_19_DS2_en_csv_v2_5361599.csv
@@ -87,9 +88,9 @@ print(urb_pop)
 # exploring statistical properties of the urban population indicators by getting the summary statistics
 urb_pop.describe()
 
-urb_pop.mean()
+np.mean(urb_pop)
 
-urb_pop.std()
+np.std(urb_pop)
 
 urb_pop.corr()
 
