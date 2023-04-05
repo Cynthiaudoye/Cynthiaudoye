@@ -206,7 +206,7 @@ plt.imshow(Uni_sta_cor, cmap='Accent_r', interpolation='none')
 plt.colorbar()
 plt.xticks(range(len(Uni_sta_cor)), Uni_sta_cor.columns, rotation=90)
 plt.yticks(range(len(Uni_sta_cor)), Uni_sta_cor.columns)
-plt.gcf().set_size_inches(10,8)
+plt.gcf().set_size_inches(11,9)
 
 
 #labelling of the little boxes and creation of a legend
