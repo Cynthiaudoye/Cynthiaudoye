@@ -1,10 +1,10 @@
  #!/usr/bin/env python
 # coding: utf-8
-
+# page source: https://data.worldbank.org/topic/climate-change
 # ## Clustering on the CO2 emission dataset offers insights into the relationships between countries based on their GDP per capita, CO2 emissions per capita, and share of global CO2 emissions. By grouping countries with similar characteristics together, we can identify patterns and similarities in their emission profiles. This can be used to better understand the factors that contribute to CO2 emissions and inform policy decisions to reduce emissions on a global scale.
 
 
-
+# Import standard libraries
 import pandas as pd
 from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
@@ -12,36 +12,36 @@ from sklearn.preprocessing import StandardScaler
 
 # Load the dataset
 df = pd.read_csv('co2emission.csv')
+print(df)
 
 
+#Returns the first 5 rows
+print(df.head(5))
 
-df.head(5)
 
-
-
-df.sample(5)
-
+#Returns a random sample of rows from a DataFrame
+print(df.sample(5))
 
 
 #Checking the column names
 print(df.columns)
 
 
-
 #Checking the sum of missing values
 #Missing values vary for different countries
-df.isna().sum()
+print(df.isna().sum())
 
 
 # Fill missing values in the DataFrame with 0 and modify the DataFrame in-place
-df.fillna(0, inplace=True)
+print(df.fillna(0, inplace=True))
+
 
 # Display the first 5 rows of the modified DataFrame
-df.head(5)
+print(df.head(5))
 
 
 #Checking the sum of missing values again
-df.isna().sum()
+print(df.isna().sum())
 
 
 # ## Exploring the Nigerian CO2 Emission Data (Random Check)
@@ -49,9 +49,12 @@ df.isna().sum()
 
 # Load the dataset
 df = pd.read_csv('co2emission.csv')
+print(df)
+
 
 # Filter the dataframe to only include Nigeria's data
 nigeria_df = df[df['iso_code'] == 'NGA']
+
 
 # Select the columns containing the years and the CO2 emissions data
 cols = ['year', 'co2_per_capita']
@@ -65,6 +68,8 @@ nigeria_df['year'] = pd.to_datetime(nigeria_df['year'], format='%Y')
 
 # Set the 'year' column as the index
 nigeria_df = nigeria_df.set_index('year')
+print(nigeria_df)
+
 
 # Plot the data as a line plot
 plt.plot(nigeria_df)
@@ -78,6 +83,7 @@ plt.show()
 
 ## The summary statistics of the data
 summary_stats = nigeria_df.describe()
+
 
 # Print the summary statistics
 print(summary_stats)
@@ -93,21 +99,28 @@ nigeria_df = df[df['iso_code'] == 'NGA']
 cols = ['year', 'co2_per_capita']
 nigeria_df = nigeria_df[cols]
 
+
 # Remove rows with missing data
 nigeria_df = nigeria_df.dropna()
+
 
 # Convert the 'year' column to datetime format and set it as the index
 nigeria_df['year'] = pd.to_datetime(nigeria_df['year'], format='%Y')
 nigeria_df = nigeria_df.set_index('year')
 
+
 # Select the last 10 years of data
 nigeria_last_10 = nigeria_df.loc['2011':'2020']
+
 
 # Calculate the total CO2 emissions for each year
 total_co2 = nigeria_last_10['co2_per_capita'].sum()
 
+
 # Calculate the percentage of CO2 emissions for each year
 co2_pct = nigeria_last_10['co2_per_capita'] / total_co2 * 100
+print(co2_pct)
+
 
 # Create a pie chart
 labels = nigeria_last_10.index.year.astype(str)
@@ -124,25 +137,33 @@ plt.show()
 #Instantiate colour list for bar chart
 colors = ['darkorange', 'steelblue', 'forestgreen', 'crimson', 'mediumvioletred', 'gold', 'cornflowerblue', 'indigo', 'salmon', 'limegreen']
 
+
 # Filter the dataframe to only include Nigeria's data
 nigeria_df = df[df['iso_code'] == 'NGA']
+
 
 # Select the columns containing the years and the CO2 emissions data
 cols = ['year', 'co2_per_capita']
 nigeria_df = nigeria_df[cols]
 
+
 # Remove rows with missing data
 nigeria_df = nigeria_df.dropna()
 
+
 # Convert the 'year' column to datetime format
 nigeria_df['year'] = pd.to_datetime(nigeria_df['year'], format='%Y')
+
 
 # Filter the dataframe to only include the last 10 years of data
 last_10_years = nigeria_df['year'] > pd.Timestamp('now') - pd.DateOffset(years=10)
 nigeria_df = nigeria_df[last_10_years]
 
+
 # Set the 'year' column as the index
 nigeria_df = nigeria_df.set_index('year')
+print(nigeria_df)
+
 
 # Create a bar chart of the CO2 emissions in the last 10 years
 plt.bar(nigeria_df.index.year, nigeria_df['co2_per_capita'], color= colors)
@@ -159,22 +180,30 @@ plt.show()
 
 # Load the dataset
 df = pd.read_csv('co2emission.csv')
+print(df)
+
 
 # Filter the dataframe to only include Nigeria's data
 uk_df = df[df['iso_code'] == 'GBR']
+
 
 # Select the columns containing the years and the CO2 emissions data
 cols = ['year', 'co2_per_capita']
 uk_df = uk_df[cols]
 
+
 # Remove rows with missing data
 uk_df = uk_df.dropna()
+
 
 # Convert the 'year' column to datetime format
 uk_df['year'] = pd.to_datetime(uk_df['year'], format='%Y')
 
+
 # Set the 'year' column as the index
 uk_df = uk_df.set_index('year')
+print(uk_df)
+
 
 # Plot the data as a line plot
 plt.plot(uk_df)
@@ -207,25 +236,32 @@ plt.show()
 # Filter the dataframe to only include UK's data
 uk_df = df[df['iso_code'] == 'GBR']
 
+
 # Select the columns containing the years and the CO2 emissions data
 cols = ['year', 'co2_per_capita']
 uk_df = uk_df[cols]
 
+
 # Remove rows with missing data
 uk_df = uk_df.dropna()
+
 
 # Convert the 'year' column to datetime format and set it as the index
 uk_df['year'] = pd.to_datetime(uk_df['year'], format='%Y')
 uk_df = uk_df.set_index('year')
 
+
 # Select the last 10 years of data
 uk_last_10 = uk_df.loc['2011':'2020']
+
 
 # Calculate the total CO2 emissions for each year
 total_co2 = uk_last_10['co2_per_capita'].sum()
 
+
 # Calculate the percentage of CO2 emissions for each year
 co2_pct = uk_last_10['co2_per_capita'] / total_co2 * 100
+
 
 # Create a pie chart
 labels = uk_last_10.index.year.astype(str)
@@ -243,19 +279,24 @@ plt.show()
 # Filter the dataframe to only include UK's data
 uk_df = df[df['iso_code'] == 'GBR']
 
+
 # Select the columns containing the years and the CO2 emissions data
 cols = ['year', 'co2_per_capita']
 uk_df = uk_df[cols]
 
+
 # Remove rows with missing data
 uk_df = uk_df.dropna()
+
 
 # Convert the 'year' column to datetime format and set it as the index
 uk_df['year'] = pd.to_datetime(uk_df['year'], format='%Y')
 uk_df = uk_df.set_index('year')
 
+
 # Select the last 10 years of data
 uk_last_10 = uk_df.loc['2011':'2020']
+
 
 # Create a bar chart
 plt.bar(uk_last_10.index.year, uk_last_10['co2_per_capita'], color= colors)
@@ -278,29 +319,36 @@ import matplotlib.pyplot as plt
 # Load the data
 df = pd.read_csv('co2emission.csv')
 
+
 # Filter the dataframe to only include UK and Nigeria's data
 countries = ['GBR', 'NGA']
 cols = ['iso_code', 'year', 'co2_per_capita']
 df = df[df['iso_code'].isin(countries)][cols]
 
+
 # Pivot the data to get the CO2 emissions by year for each country
 pivot = df.pivot(index='year', columns='iso_code', values='co2_per_capita')
 pivot = pivot.reset_index()
+
 
 # Remove rows with missing or invalid data
 pivot = pivot.dropna()
 pivot = pivot.replace([np.inf, -np.inf], np.nan).dropna()
 
+
 # Normalize the data
 norm_pivot = pivot.copy()
 norm_pivot[countries] = (pivot[countries] - pivot[countries].mean()) / pivot[countries].std()
+
 
 # Perform K-means clustering with 2 clusters
 kmeans = KMeans(n_clusters=2, random_state=42)
 cluster_labels = kmeans.fit_predict(norm_pivot[countries].values)
 
+
 # Add the cluster labels to the normalized pivot table
 norm_pivot['cluster'] = cluster_labels
+
 
 # Plot the clusters
 fig, ax = plt.subplots(figsize=(10, 5))
@@ -315,6 +363,7 @@ for i in range(2):
 
 plt.tight_layout()
 plt.show()
+
 
 # Compare trends within and across the clusters
 for i in range(2):
@@ -345,23 +394,29 @@ import matplotlib.pyplot as plt
 # Load the data
 df = pd.read_csv('co2emission.csv')
 
+
 # Select countries
 countries = ['EGY', 'ZAF', 'NGA', 'ETH', 'KEN']
+
 
 # Filter the data to include only the chosen countries
 cols = ['iso_code', 'year', 'co2_per_capita']
 df = df[df['iso_code'].isin(countries)][cols]
 
+
 # Pivot the data to get the CO2 emissions by year for each country
 pivot = df.pivot(index='year', columns='iso_code', values='co2_per_capita')
 pivot = pivot.reset_index()
 
+
 # Fill missing values with the mean of the corresponding column
 pivot = pivot.fillna(pivot.mean())
+
 
 # Normalize the data
 norm_pivot = pivot.copy()
 norm_pivot[countries] = (pivot[countries] - pivot[countries].mean()) / pivot[countries].std()
+
 
 # Perform K-means clustering with 3 clusters
 kmeans = KMeans(n_clusters=3, random_state=42)
@@ -369,6 +424,7 @@ cluster_labels = kmeans.fit_predict(norm_pivot[countries].values)
 
 # Add the cluster labels to the normalized pivot table
 norm_pivot['cluster'] = cluster_labels
+
 
 # Plot the clusters
 fig, ax = plt.subplots(figsize=(10, 5))
@@ -413,13 +469,16 @@ from sklearn.preprocessing import StandardScaler
 # Load the dataset
 df = pd.read_csv('co2emission.csv')
 
+
 # Preprocess the data
 df = df[['iso_code', 'year', 'gdp', 'co2_per_capita', 'share_global_co2']].dropna()
 df_norm = StandardScaler().fit_transform(df[['gdp', 'co2_per_capita', 'share_global_co2']])
 
+
 # Perform clustering
 kmeans = KMeans(n_clusters=5, random_state=0).fit(df_norm)
 df['cluster'] = kmeans.labels_
+
 
 # Plot the results
 fig, ax = plt.subplots()
@@ -462,6 +521,7 @@ import matplotlib.pyplot as plt
 # Create a list of colors for the clusters
 colors = ['blue', 'red', 'green', 'purple', 'orange']
 
+
 # Plot the results
 fig, axs = plt.subplots(nrows=2, ncols=3, figsize=(12, 8))
 for i, cluster in enumerate(df['cluster'].unique()):
@@ -496,8 +556,10 @@ import matplotlib.pyplot as plt
 # Load the data
 df = pd.read_csv('co2emission.csv')
 
+
 # Select four countries to compare
 countries = ['USA', 'CHN', 'DEU', 'IND']
+
 
 # Filter the data to include only the chosen countries and relevant years
 recent_year = df['year'].max()
@@ -510,19 +572,23 @@ historical_data = df[(df['iso_code'].isin(countries)) &
 recent_data = df[df['iso_code'].isin(countries) & 
                  (df['year'] == recent_year)][cols]
 
+
 # Pivot the data to create separate columns for each country
 historical_data = historical_data.pivot(index='year', columns='iso_code', values='co2_per_capita')
 recent_data = recent_data.set_index('iso_code')['co2_per_capita']
+
 
 # Create a bar chart to compare recent data
 recent_data.plot(kind='bar')
 plt.title(f'CO2 Emissions per Capita ({recent_year})')
 plt.show()
 
+
 # Create a line chart to compare historical data
 historical_data.plot(kind='line')
 plt.title(f'CO2 Emissions per Capita ({historical_start_year}-{historical_end_year})')
 plt.show()
+
 
 # Calculate the differences between the countries in the recent year
 recent_diffs = pd.DataFrame(index=countries, columns=countries)
@@ -532,6 +598,7 @@ for i in range(len(countries)):
         recent_diffs.at[countries[i], countries[j]] = diff
         recent_diffs.at[countries[j], countries[i]] = -diff
 print(f'Recent Differences:\n{recent_diffs}')
+
 
 # Calculate the differences between the countries over historical period
 historical_diffs = pd.DataFrame(index=countries, columns=countries)
@@ -560,30 +627,38 @@ import matplotlib.pyplot as plt
 # Load the data
 df = pd.read_csv('co2emission.csv')
 
+
 # Select countries
 countries = ['USA', 'QAT', 'GBR', 'RUS', 'NGA']
+
 
 # Filter the data to include only the chosen countries
 cols = ['iso_code', 'year', 'co2_per_capita']
 df = df[df['iso_code'].isin(countries)][cols]
 
+
 # Pivot the data to get the CO2 emissions by year for each country
 pivot = df.pivot(index='year', columns='iso_code', values='co2_per_capita')
 pivot = pivot.reset_index()
 
+
 # Fill missing values with the mean of the corresponding column
 pivot = pivot.fillna(pivot.mean())
+
 
 # Normalize the data
 norm_pivot = pivot.copy()
 norm_pivot[countries] = (pivot[countries] - pivot[countries].mean()) / pivot[countries].std()
 
+
 # Perform K-means clustering with 3 clusters
 kmeans = KMeans(n_clusters=3, random_state=42)
 cluster_labels = kmeans.fit_predict(norm_pivot[countries].values)
 
+
 # Add the cluster labels to the normalized pivot table
 norm_pivot['cluster'] = cluster_labels
+
 
 # Plot the clusters
 fig, ax = plt.subplots(figsize=(10, 5))
@@ -598,6 +673,7 @@ for i in range(3):
 
 plt.tight_layout()
 plt.show()
+
 
 # Compare trends within and across the clusters
 for i in range(3):
@@ -627,6 +703,7 @@ import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 from scipy.optimize import curve_fit
 
+
 # this function returns a dataframe and its transpose
 def read_data(filePath, cols):
     """
@@ -648,7 +725,7 @@ df_CO2 = read_data(filePath, cols)
 print(df_CO2)
 
 
-df_CO2.head(5)
+print(df_CO2.head(5))
 
 
 print(df_CO2.isnull().sum())
@@ -660,6 +737,7 @@ print(data_CO2)
 
 
 print(data_CO2.isnull().sum())
+
 
 # drop null values
 dataCO2 = data_CO2.dropna()
@@ -694,10 +772,12 @@ def normalised_data(data):
 
 df_copy = dataCO2.copy()
 
+
 norm_data = normalised_data(df_copy)
 
+
 data_cluster = norm_data[['1990', '2019']].values
-data_cluster
+print(data_cluster)
 
 
 # ## Using Sum of Squared Error
@@ -724,9 +804,11 @@ plt.show()
 kmeans = KMeans(n_clusters=4, random_state=0)
 y_predict = kmeans.fit_predict(data_cluster)
 
+
 # the cluster centroids are determined 
 cluster_centroid = kmeans.cluster_centers_
 print(cluster_centroid)
+
 
 # a scatterplot is plot to visualize the clusters and the centroids
 plt.figure(figsize=(14,12))
@@ -740,6 +822,7 @@ plt.xlabel('Year 1990', fontsize=20)
 plt.ylabel('Year 2019', fontsize=20)
 plt.legend(bbox_to_anchor=(1.0,1.0))
 plt.show()
+
 
 # the clusters are stored in a column called cluster
 dataCO2['k_clusters'] = y_predict
@@ -756,13 +839,16 @@ print(secondClusterData)
 # create a figure and axis object
 fig, ax = plt.subplots(figsize=(18,12))
 
+
 # set the width of the bars
 width = 0.35
 xticklabels = ['East A&P', 'High Income', 'IBRD only', 'IDA & IBRD', 'L&M Income', 'LDD', 'Middle Income', 'OECD Mem', 'PDD', 'UMI']
 
+
 # create a bar for the 1990 values
 x = np.arange(len(secondClusterData.index))
 rects1 = ax.bar(x - width/2, secondClusterData['1990'], width, label='1990')
+
 
 # create a bar for the 2019 values
 rects2 = ax.bar(x + width/2, secondClusterData['2019'], width, label='2019')
@@ -771,20 +857,26 @@ rects2 = ax.bar(x + width/2, secondClusterData['2019'], width, label='2019')
 ax.set_xticks(x)
 ax.set_xticklabels(xticklabels)
 
+
 # set the y-axis label
 ax.set_ylabel('Kiloton', fontsize=20)
 ax.set_title('CO2 emission(kt) represented as a grouped bar plot for the second cluster', fontsize=25)
 
+
 # add a legend
 ax.legend()
+
 
 # show the plot
 plt.show()
 
+
 print(thirdClusterData)
+
 
 # create a figure and axis object
 fig, ax = plt.subplots(figsize=(16,12))
+
 
 # plot the line chart
 for i in thirdClusterData.index:
@@ -798,38 +890,49 @@ ax.set_title('Multiple line plot showing the change in CO2 emission between 1990
 # add a legend
 ax.legend(bbox_to_anchor=(1.0, 1.0))
 
+
 # show the plot
 plt.show()
+
 
 # set the random seed for reproducibility
 np.random.seed(140)
 
+
 # randomly select 5 rows
 random_rows = firstClusterData.sample(n=5)
+
 
 # extract the numerical variable to plot 
 values = random_rows['2019']
 
+
 # create labels for the pie chart
 labels = ['South Africa', 'Dominican Republic', 'South Asia (IDA & IBRD)', 'Latin America & Caribbean', 'Middle East & North Africa (excluding high income)']
+
 
 # create a pie chart
 fig, ax = plt.subplots(figsize=(12,10))
 ax.pie(values, labels=labels, autopct='%1.1f%%')
 
+
 # set the title
 ax.set_title('Pie Chart of Randomly Selected Countries Using the First Cluster', fontsize=20)
 
+
 # show the plot
 plt.show()
+
 
 # for the data fitting, the CO2 dataframe is transposed
 CO2_transposed = df_CO2.transpose()
 print(CO2_transposed)
 
+
 # the rows of the transposed data is sliced for easier analysis
 CO2_sliced = CO2_transposed.loc['1990':'2019',:]
-CO2_sliced
+print(CO2_sliced)
+
 
 # Column United states is extracted and a dataframe is created
 df_US = pd.DataFrame({
@@ -838,8 +941,11 @@ df_US = pd.DataFrame({
 })
 df_US.reset_index(drop=True)
 
+
 # the year column is converted to integer
 df_US['Year'] = np.asarray(df_US['Year'].astype(np.int64))
+print(df_US['Year'])
+
 
 # a line plot of CO2 emission in USA
 plt.figure(figsize=(12,10))
@@ -884,11 +990,17 @@ def err_ranges(x, y):
 
 # an array of years ranging from 1990 to 2035 is created for forecast
 year = np.arange(1990, 2035)
+print(year)
+
+
 # the forecast for the next 14 years is calculated using the polynomial function
 forecast = polynomial(year, *param)
+print(forecast)
+
 
 # the lower and upper limits of the forecast are calculated using the err_ranges function
 lower, upper = err_ranges(year, forecast)
+
 
 plt.figure(figsize=(12,10))
 plt.plot(df_US["Year"], df_US["United States"], label="CO2 emission")
