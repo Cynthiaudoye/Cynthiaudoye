@@ -512,7 +512,8 @@ for cluster in df['cluster'].unique():
 
 
 # ### This prints out the countries in each cluster and comparing the GDP per capita, CO2 per capita, and share of global CO2 between two countries from each cluster. The comparison allows us to identify similarities and differences in the CO2 emission patterns between countries in the same cluster and across different clusters. We can use this information to draw insights about the factors that contribute to differences in CO2 emissions across countries, such as economic development, population size, energy sources, and policy initiatives. 
-# 
+
+
 # ### For example, we may observe that countries with similar GDP per capita tend to have similar CO2 emissions per capita, which could suggest that economic growth and industrialization are key drivers of CO2 emissions. Alternatively, we may find that countries with similar CO2 emissions per capita but different shares of global CO2 have different energy mixes, with some countries relying more heavily on fossil fuels than others. This visualization and analysis can help us understand the patterns and drivers of CO2 emissions and inform policy decisions to mitigate climate change.
 
 
