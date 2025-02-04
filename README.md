@@ -22,6 +22,6 @@ I’m a **Data Scientist** passionate about solving real-world problems through 
    - Collaborating on innovative data science and machine learning projects.
 
 🤝 **Let's Connect:**  
-   - I’m open to collaborations on data science projects. Reach out to me on **[LinkedIn](https://www.linkedin.com/in/chinenye-cynthia-udoye-data-scientist/)**!  
+   - I’m open to collaborations on data science projects. Reach out to me on **[LinkedIn](https://www.linkedin.com/in/chinenye-cynthia-udoye-data-scientist)**!  
    
 🚀 **Check out my repositories** to explore my projects, and feel free to reach out with questions or ideas!
