@@ -1,11 +1,27 @@
-### 👋 Hello! I'm Cynthia, a dedicated Data Analyst with a strong foundation in Excel, Power BI, SQL, and Python.
-- 📊 My main area of expertise lies in transforming raw data into meaningful insights, and I am passionate about using my skills to drive data-driven decision making.
-- 🤖 I have a growing interest in Machine Learning, and I am actively building my skills in this area with the goal of transitioning into a Data Scientist role.
-- 💻 Languages & Tools: Excel, Power BI, SQL, Python, Machine Learning
-- 🌱 Currently Learning: Advanced Machine Learning Techniques, Deep Learning
-- 🔍 I love diving into data, uncovering trends, and providing actionable insights.
-- 🤝 I’m open to collaborations on data analysis and machine learning projects.
-- 📫 How to reach me: [LinkedIn](https://www.linkedin.com/in/chinenye-cynthia-udoye-data-scientist/)
-- 🚀 Check out my repositories to see some of the work I've done and feel free to reach out if you have any questions or need a collaborator!
+# 👋 Hello! I'm Cynthia Udoye
 
--->
+I’m a **Data Scientist** passionate about solving real-world problems through **data analysis**, **visualization**, and **machine learning**.  
+
+📊 **Expertise:**  
+   - Transforming raw data into **actionable insights** using tools like **Excel**, **Power BI**, **SQL**, and **Python**.  
+   - Building predictive models and automating workflows to support data-driven decision-making.
+
+🤖 **Projects & Experience:**  
+   - Developed an **Automated Forex Trading Bot** using machine learning models like **GRU** and **XGBoost**.  
+   - Built a **Multimodal Genre Classification Model** using **CNNs** and **LSTMs** to classify film data.  
+   - Created dynamic **Power BI dashboards** for real-time business insights across sales, finance, and operations.
+
+💻 **Languages & Tools:**  
+   - Python | SQL | Excel | Power BI | Machine Learning (TensorFlow, Keras)
+
+🌱 **Currently Learning:**  
+   - Advanced **Deep Learning** and **MLOps** for scalable data projects.
+
+🔍 **What I Enjoy:**  
+   - Exploring data to uncover trends and deliver insights that drive business strategies.  
+   - Collaborating on innovative data science and machine learning projects.
+
+🤝 **Let's Connect:**  
+   - I’m open to collaborations on data science projects. Reach out to me on **[LinkedIn](#)**!  
+   
+🚀 **Check out my repositories** to explore my projects, and feel free to reach out with questions or ideas!
